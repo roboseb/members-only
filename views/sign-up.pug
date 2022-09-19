@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 Let's sign up!
+  form(action="" method="POST")
+    label(for='username') Username 
+    input(name="username" type="text" value=`${user ? user.username : ''}` required)
+    
+    label(for='password') Password 
+    input(name="password" type="text" required)
+
+    label(for='confirmPassword') Confirm Password 
+    input(name="confirmPassword" type="text" required)
+
+    label(for='firstName') First Name 
+    input(name="firstName" type="text" value=`${user ? user.firstName : ''}` required)
+    label(for='lastName') Last Name 
+    input(name="lastName" type="text" value=`${user ? user.lastName : ''}` required)
+
+    button(type='submit') Submit
+
+    if (errors) 
+        ul 
+            each error in errors
+                li= error.msg

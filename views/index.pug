@@ -1,0 +1,78 @@
+extends layout
+
+block content
+
+
+    //- if user
+    //-     button new message
+
+    //-     form(action='/add-message' id='message-form' method='POST')
+    //-         h2 New Message Form
+    //-         input(type='text' value=`${user.username}` name='username' style='display: none')
+    //-         textarea(form='message-form' name='message')
+    //-         button(type='submit') Add
+
+
+
+
+
+
+
+    #homebox 
+        #server-icons
+            .server-icon 
+            .server-bar
+            .server-icon 
+            .server-icon
+            .server-icon
+            .server-icon
+
+        #server-content
+            #channel-list 
+                #channels-header.header 
+                    div Discord IM
+                    img.icon(src='images/chevron-down.svg')
+                #text-channels  
+                    .channel-header TEXT CHANNELS
+                    .text-channel-name welcome 
+                    .text-channel-name general
+                    .text-channel-name memes
+
+                #voice-channels
+                    .channel-header VOICE CHANNELS
+                    .voice-channel-name welcome 
+                    .voice-channel-name general
+                    .voice-channel-name memes
+                
+                #channel-filler(style='flex-grow: 1')
+
+                #user-info
+                    if user
+                        div= user.username
+
+            #messages-container
+                #message-box 
+                    img.icon(src='images/plus.svg')
+                    div(style='flex-grow: 1') Message #general
+                    img.icon(src='images/gift.png')
+                    img.icon(src='images/gif.png')
+                    img.icon(src='images/file.png')
+                    img.icon(src='images/smile.png')
+
+                #messages
+                    if data.message_list
+                        each message in data.message_list
+                            .message
+                                .message-text= message.message
+                                .message-date 06/02/2022
+                                .message-username= message.username
+                
+                #messages-header.header 
+                    div  # general
+
+            #user-list
+                each user in data.user_list 
+                    div= user.username
+
+
+
