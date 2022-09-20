@@ -48,13 +48,18 @@ exports.user_create_post = [
                     res.render('sign-up', { title: 'Sign Up', user: tempUser, errors: [err] });
                 } else {
                     // Create Author object with escaped/trimmed/encrypted data.
+
+                    // List of profile pics in custom dingbat font.
+                    const picChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o']
+
                     var user = new User(
                         {
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
                             username: req.body.username,
                             password: hashedPassword,
-                            member: false
+                            member: false,
+                            pic: picChoices[Math.floor(Math.random() * picChoices.length)]
                         }
                     );
 

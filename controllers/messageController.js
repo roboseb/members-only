@@ -24,6 +24,8 @@ exports.new_message_post = [
             {
                 message: req.body.message,
                 username: req.body.username,
+                channel: req.body.channel,
+                pic: req.body.pic
             }
         );
 
@@ -55,9 +57,11 @@ exports.index_get = (req, res, next) => {
         user_list(callback) {
             User.find({}, callback); // Pass an empty object as match condition to find all documents of this collection
         },
+        user_count(callback) {
+            User.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
+        },
     },
         (err, results) => {
-            console.log(results.message_list[0].message);
             res.render('index', { error: err, data: results, user: req.user});
         });
 };

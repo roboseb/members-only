@@ -13,11 +13,6 @@ block content
     //-         button(type='submit') Add
 
 
-
-
-
-
-
     #homebox 
         #server-icons
             .server-icon 
@@ -32,17 +27,25 @@ block content
                 #channels-header.header 
                     div Discord IM
                     img.icon(src='images/chevron-down.svg')
-                #text-channels  
-                    .channel-header TEXT CHANNELS
-                    .text-channel-name welcome 
-                    .text-channel-name general
-                    .text-channel-name memes
+                #text-channels
+                    - var textChannels = ['welcome', 'general', 'memes']
+                    .channel-header 
+                        img.icon(src='images/chevron-down.svg')
+                        div TEXT CHANNELS
+                    each channel in textChannels 
+                        .text-channel(class=`${channel === 'general' ? 'selected' : ''}`)
+                            img.icon(src='images/hashtag-base.png')
+                            .text-channel-name= channel
 
                 #voice-channels
-                    .channel-header VOICE CHANNELS
-                    .voice-channel-name welcome 
-                    .voice-channel-name general
-                    .voice-channel-name memes
+                    - var voiceChannels = ['welcome', 'general']
+                    .channel-header 
+                        img.icon(src='images/chevron-down.svg')
+                        div VOICE CHANNELS
+                    each channel in voiceChannels 
+                        .voice-channel
+                            img.icon(src='images/sound.png')
+                            .voice-channel-name= channel 
                 
                 #channel-filler(style='flex-grow: 1')
 
@@ -52,8 +55,17 @@ block content
 
             #messages-container
                 #message-box 
-                    img.icon(src='images/plus.svg')
-                    div(style='flex-grow: 1') Message #general
+                    img.icon.plus-icon(src='images/plus.svg')
+
+                    if user
+                        form(action='/add-message' id='message-form' method='POST')
+                            input(type='text' value=`general` name='channel' hidden)
+                            input(type='text' value=`${user.username}` name='username' hidden)
+                            input(type='text' value=`${user.pic}` name='pic' hidden)
+                            input(type='text' name='message' placeholder='Message #general' autocomplete="off")
+                            input(type='submit' hidden)
+                    else
+                        div.placeholder Sign in to post!
                     img.icon(src='images/gift.png')
                     img.icon(src='images/gif.png')
                     img.icon(src='images/file.png')
@@ -63,16 +75,46 @@ block content
                     if data.message_list
                         each message in data.message_list
                             .message
-                                .message-text= message.message
-                                .message-date 06/02/2022
-                                .message-username= message.username
+                                .user-pic 
+                                    .pic-dingbat= message.pic 
+                                .message-content
+                                    .message-username(style=`${message.username === 'roboseb' ? 'color: aquamarine' : ''}`)= message.username
+                                        .message-date 06/02/2022
+                                    .message-text= message.message
+                                    
+                                    
                 
-                #messages-header.header 
+                #messages-header.header
                     div  # general
+                    #messages-header-icons 
+                        img.icon(src='images/hashtag.png')
+                        img.icon(src='images/bell.png')
+                        img.icon(src='images/pin.png')
+                        img.icon(src='images/users.png')
 
             #user-list
+                #user-list-header.header
+                    #searchbar
+                        input(type='text' placeholder='Search')
+                        img.icon
+                    #user-list-header-icons
+                        img.icon(src='images/inbox.png')
+                        img.icon(src='images/help.png')
+
+                .user-list-category MIA - 1
+                .user-list-user 
+                    .user-pic 
+                        .pic-dingbat= 'a'
+                        .user-online-circle.mia-circle
+                    .user-list-username(style='color: hotpink') mia
+
+                .user-list-category= `ONLINE - ${data.user_count}` 
                 each user in data.user_list 
-                    div= user.username
+                    .user-list-user 
+                        .user-pic 
+                            .pic-dingbat= user.pic 
+                            .user-online-circle 
+                        .user-list-username(style=`${user.username === 'roboseb' ? 'color: aquamarine' : ''}`)= user.username
 
 
 

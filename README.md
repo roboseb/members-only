@@ -14,6 +14,12 @@ September 17th, 2022
 
     Authentication shit is done! Easy peasy with the TOP page and a little stackoverflow. Now for some message DB stuff.
 
+September 18th, 2022
+
+    Yesterday was pretty productive layout-wise. Found a new site for when I need more specific icons than what feathericons has. I've decided to use a dingbat face font for generating user icons, as that seems to be the simplest way, and the dingbat font I found is pretty cute. Man I gotta shit.
+
+    Fucking I key stopped working on my mechanical keyboard. Luckily I have a basic old one that I was using before. Might even be able to get a replacement from Amazon/the manufacturer, but not sure how long that'll take. Technically, it was a keyboard/mouse combo, so it would be dope if they sent me a full set of both. For the time being, might take some time to readjust to this keyboard.
+
 --To-Do---
 
 -Fade in on scroll like fireship's video
@@ -28,3 +34,8 @@ September 17th, 2022
 -screen bleeding effect (overly realistic)
 -message timestamp
 -UI elements start bugging out
+-randomly replace characters with dingbats(rakugaki)
+-fix dates
+-add actual channel funcitonality
+-mobile-support
+-test/setup overflowing users
