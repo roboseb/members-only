@@ -2,26 +2,19 @@ extends layout
 
 block content
 
-
-    //- if user
-    //-     button new message
-
-    //-     form(action='/add-message' id='message-form' method='POST')
-    //-         h2 New Message Form
-    //-         input(type='text' value=`${user.username}` name='username' style='display: none')
-    //-         textarea(form='message-form' name='message')
-    //-         button(type='submit') Add
-
-
-    #homebox 
+    #homebox
         #server-icons
-            .server-icon 
+            .server-icon.discord-icon-box
+                .server-icon-image.discord-icon(style="background-image: url('/images/discord.png')")
             .server-bar
-            .server-icon 
-            .server-icon
-            .server-icon
-            .server-icon
-
+            .server-icon.notification
+                .server-icon-image(style="background-image: url('/images/odin.webp')")
+            .server-icon.selected
+                .server-icon-image.mia(style="background-image: url('/images/mia-base.png')")
+            .server-icon.server-option
+                .server-icon-image(style="background-image: url('/images/plus2.svg')")
+            .server-icon.notification.server-option
+                .server-icon-image(style="background-image: url('/images/compass.png')")
         #server-content
             #channel-list 
                 #channels-header.header 
@@ -33,7 +26,7 @@ block content
                         img.icon(src='images/chevron-down.svg')
                         div TEXT CHANNELS
                     each channel in textChannels 
-                        .text-channel(class=`${channel === 'general' ? 'selected' : ''}`)
+                        .text-channel.channel(class=`${channel === 'general' ? 'selected' : ''}` id=`${channel}`)
                             img.icon(src='images/hashtag-base.png')
                             .text-channel-name= channel
 
@@ -43,78 +36,110 @@ block content
                         img.icon(src='images/chevron-down.svg')
                         div VOICE CHANNELS
                     each channel in voiceChannels 
-                        .voice-channel
+                        .voice-channel(id=`${channel}-voice`)
                             img.icon(src='images/sound.png')
                             .voice-channel-name= channel 
                 
                 #channel-filler(style='flex-grow: 1')
 
                 #user-info
+                    - var  code = Math.floor(Math.random() * 9999)
+
                     if user
-                        div= user.username
+                        #user-info-data
+                            .user-pic 
+                                .pic-dingbat= user.pic
+                                .user-online-circle  
+                            #user-data
+                                div= user.username
+                                div(style='filter: opacity(0.7)')= user.code ? `#${user.code}` : `#${code}`
+
+                    #user-info-icons
+                        img(src='images/mic.png')
+                        img(src='images/headphones.png')
+                        img(src='images/gear.png')
+
 
             #messages-container
-                #message-box 
-                    img.icon.plus-icon(src='images/plus.svg')
+                each channel in ['welcome', 'general', 'memes']
+                    .message-box(class=`${channel} visible`)
+                        img.icon.plus-icon(src='images/plus.svg')
 
-                    if user
-                        form(action='/add-message' id='message-form' method='POST')
-                            input(type='text' value=`general` name='channel' hidden)
-                            input(type='text' value=`${user.username}` name='username' hidden)
-                            input(type='text' value=`${user.pic}` name='pic' hidden)
-                            input(type='text' name='message' placeholder='Message #general' autocomplete="off")
-                            input(type='submit' hidden)
-                    else
-                        div.placeholder Sign in to post!
-                    img.icon(src='images/gift.png')
-                    img.icon(src='images/gif.png')
-                    img.icon(src='images/file.png')
-                    img.icon(src='images/smile.png')
+                        if user
+                            form(action='/add-message' id='message-form' method='POST')
+                                input(type='text' value=`${channel}` name='channel' hidden)
+                                input(type='text' value=`${user.username}` name='username' hidden)
+                                input(type='text' value=`${user.pic}` name='pic' hidden)
+                                input(type='text' name='message' placeholder=`Message #${channel}` autocomplete="off")
+                                input(type='submit' hidden)
+                        else
+                            div.placeholder Sign in to post!
+                        img.icon(src='images/gift.png')
+                        img.icon(src='images/gif.png')
+                        img.icon(src='images/file.png')
+                        img.icon(src='images/smile.png')
 
-                #messages
-                    if data.message_list
-                        each message in data.message_list
-                            .message
-                                .user-pic 
-                                    .pic-dingbat= message.pic 
-                                .message-content
-                                    .message-username(style=`${message.username === 'roboseb' ? 'color: aquamarine' : ''}`)= message.username
-                                        .message-date 06/02/2022
-                                    .message-text= message.message
-                                    
-                                    
-                
-                #messages-header.header
-                    div  # general
-                    #messages-header-icons 
-                        img.icon(src='images/hashtag.png')
-                        img.icon(src='images/bell.png')
-                        img.icon(src='images/pin.png')
-                        img.icon(src='images/users.png')
+                    .messages.custom-scroll(class=`${channel} visible`)
+                        if data.message_list
+                            .messages-filler(style='flex-grow: 1')
+                            each message in data.message_list
+                                if message.channel === channel
+                                    .message
+                                        .user-pic 
+                                            .pic-dingbat= message.pic 
+                                        .message-content
+                                            .message-username(style=`${message.username === 'roboseb' ? 'color: aquamarine' : ''}`)= message.username
+                                                - var recentDate = false 
+                                                - var date = new Date()
+                                                - var hours = message.postDate.getHours()
+                                                - var am = true
+                                                if message.postDate && date.toLocaleDateString("en-US") === message.postDate.toLocaleDateString("en-US")
+                                                    - recentDate = true
+                                                if recentDate 
+                                                    if hours > 11
+                                                        - am = false
+                                                        if hours > 12 
+                                                            - hours = hours - 12
+                                                    if hours === 0
+                                                        - hours = 12 
 
-            #user-list
-                #user-list-header.header
-                    #searchbar
-                        input(type='text' placeholder='Search')
-                        img.icon
-                    #user-list-header-icons
-                        img.icon(src='images/inbox.png')
-                        img.icon(src='images/help.png')
+                                                .message-date= recentDate ? `Today at ${hours}:${message.postDate.getMinutes()} ${am ? 'am' : 'pm'}` : message.postDate.toLocaleDateString("en-US")
+                                            .message-text= message.message
+                                        
+                                        
+                    
+                    .messages-header.header(class=`${channel} visible`)
+                        div= `# ${channel}`
+                        .messages-header-icons 
+                            img.icon(src='images/hashtag.png')
+                            img.icon(src='images/bell.png')
+                            img.icon(src='images/pin.png')
+                            img.icon(src='images/users.png')
 
-                .user-list-category MIA - 1
-                .user-list-user 
-                    .user-pic 
-                        .pic-dingbat= 'a'
-                        .user-online-circle.mia-circle
-                    .user-list-username(style='color: hotpink') mia
+            #user-list-container
+                #user-list.custom-scroll
+                    #user-list-header.header
+                        #searchbar
+                            input(type='text' placeholder='Search')
+                            img.icon
+                        #user-list-header-icons
+                            img.icon(src='images/inbox.png')
+                            img.icon(src='images/help.png')
 
-                .user-list-category= `ONLINE - ${data.user_count}` 
-                each user in data.user_list 
+                    .user-list-category MIA - 1
                     .user-list-user 
                         .user-pic 
-                            .pic-dingbat= user.pic 
-                            .user-online-circle 
-                        .user-list-username(style=`${user.username === 'roboseb' ? 'color: aquamarine' : ''}`)= user.username
+                            .pic-dingbat= 'a'
+                            .user-online-circle.mia-circle
+                        .user-list-username(style='color: hotpink') mia
+
+                    .user-list-category= `ONLINE - ${data.user_count}` 
+                    each user in data.user_list 
+                        .user-list-user 
+                            .user-pic 
+                                .pic-dingbat= user.pic 
+                                .user-online-circle 
+                            .user-list-username(style=`${user.username === 'roboseb' ? 'color: aquamarine' : ''}`)= user.username
 
 
 

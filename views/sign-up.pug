@@ -1,25 +1,33 @@
 extends layout
 
 block content
-  h1 Let's sign up!
-  form(action="" method="POST")
-    label(for='username') Username 
-    input(name="username" type="text" value=`${user ? user.username : ''}` required)
-    
-    label(for='password') Password 
-    input(name="password" type="text" required)
+    .sign-in.sign-up
+        h1 Let's sign up!
+        form.account-form(action="" method="POST")
+            label(for='username') Username 
+            input(name="username" type="text"  placeholder='cBarkley' value=`${user ? user.username : ''}` required)
 
-    label(for='confirmPassword') Confirm Password 
-    input(name="confirmPassword" type="text" required)
+            .sign-in-padder
 
-    label(for='firstName') First Name 
-    input(name="firstName" type="text" value=`${user ? user.firstName : ''}` required)
-    label(for='lastName') Last Name 
-    input(name="lastName" type="text" value=`${user ? user.lastName : ''}` required)
+            label.pass(for='password') Password 
+                .eye
+                    img.hidden(src='images/eye.svg')
+            input.password(name="password" type="password" placeholder='shutUpAndJam' required) 
 
-    button(type='submit') Submit
+            label.pass(for='confirmPassword') Confirm Password 
+                .eye
+                    img.hidden(src='images/eye.svg')
+            input.password(name="confirmPassword" type="password"  placeholder='shutUpAndJam' required)
+            .sign-in-padder
 
-    if (errors) 
-        ul 
-            each error in errors
-                li= error.msg
+            label(for='firstName') First Name 
+            input(name="firstName" type="text" placeholder='Charles' value=`${user ? user.firstName : ''}` required)
+            label(for='lastName') Last Name 
+            input(name="lastName" type="text" placeholder='Barkley' value=`${user ? user.lastName : ''}` required)
+
+            button(type='submit') Submit
+
+            if errors 
+                ul.account-error 
+                    each error in errors
+                        li= error.msg

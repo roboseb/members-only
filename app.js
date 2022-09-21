@@ -40,6 +40,7 @@ passport.use(
                 return done(err);
             }
             if (!user) {
+                console.log('no user found')
                 return done(null, false, { message: "Incorrect username" });
             }
 

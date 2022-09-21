@@ -1,27 +1,27 @@
 doctype html
 html
-  head
-    title Discord Instant Messenger
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    head
+        title Discord Instant Messenger
+        link(rel='stylesheet' href='/stylesheets/style.css')
+    body
 
-    div#navbar 
-        a(href='/') Discord Instant Messenger
+        div#navbar 
+            a(href='/') Discord Instant Messenger
 
-        #navlinks
-            if user
-                h2= user.username
-                a(href='/sign-out') Sign Out
-                
-                
-            else 
-                h2 Sign in to post! 
-                a(href='/sign-in') Sign In
-                a(href='/sign-up') Sign Up
+            #navlinks
+                if user
+                    h2= user.username
+                    a(href='/sign-out') Sign Out
 
-            a(href='/') Home
 
-    #main
-        block content
+                else 
+                    h2 Sign in to post! 
+                    a(href='/sign-in') Sign In
+                    a(href='/sign-up') Sign Up
 
-    script(src='javascripts/script.js')
+                a(href='/') Home
+
+        #main
+            block content
+
+        script(src='javascripts/script.js')

@@ -14,8 +14,6 @@ exports.new_message_post = [
     // Process request after validation and sanitization.
     (req, res, next) => {
 
-        console.log('writing message...')
-
         // Extract the validation errors from a request.
         const errors = validationResult(req);
 
@@ -25,7 +23,8 @@ exports.new_message_post = [
                 message: req.body.message,
                 username: req.body.username,
                 channel: req.body.channel,
-                pic: req.body.pic
+                pic: req.body.pic,
+                postDate: new Date()
             }
         );
 

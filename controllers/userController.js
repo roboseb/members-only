@@ -52,6 +52,9 @@ exports.user_create_post = [
                     // List of profile pics in custom dingbat font.
                     const picChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o']
 
+                    const code = Math.floor(Math.random() * 9999)
+                    const paddedCode = String(code).padStart(4, 0);
+
                     var user = new User(
                         {
                             firstName: req.body.firstName,
@@ -59,7 +62,8 @@ exports.user_create_post = [
                             username: req.body.username,
                             password: hashedPassword,
                             member: false,
-                            pic: picChoices[Math.floor(Math.random() * picChoices.length)]
+                            pic: picChoices[Math.floor(Math.random() * picChoices.length)],
+                            code: paddedCode
                         }
                     );
 
@@ -79,10 +83,24 @@ exports.user_create_post = [
 exports.user_signin_post = passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/sign-in"
-})
+});
+
+exports.user_signin_post = (req, res, next) => {
+    passport.authenticate('local', function (err, user, info) {
+        if (err) { return next(err) }
+        if (!user) {
+            // *** Display message without using flash option
+            // re-render the login form with a message
+            return res.render('sign-in', { message: info.message })
+        }
+        req.logIn(user, function (err) {
+            if (err) { return next(err); }
+            return res.redirect('/');
+        });
+    })(req, res, next);
+}
 
 // Handle signing user out.
-
 exports.user_signout_post = (req, res, next) => {
     req.logout(function (err) {
         if (err) {
