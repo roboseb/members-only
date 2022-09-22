@@ -70,19 +70,275 @@ allContainers.forEach(item => {
 const eyes = Array.from(document.querySelectorAll('.eye'));
 eyes.forEach(eye => {
     eye.addEventListener('click', () => {
-        const eyeImg =  eye.querySelector('img');
+        const eyeImg = eye.querySelector('img');
         eyeImg.classList.toggle('hidden');
 
         // Toggle password visibility.
         const labelFor = eye.parentElement.getAttribute('for');
         const eyeInput = document.querySelector(`input[name="${labelFor}"]`);
-        
+
         if (eyeInput.getAttribute('type') === 'password') {
             eyeInput.setAttribute('type', 'text');
         } else {
             eyeInput.setAttribute('type', 'password')
         }
 
-        
+
     });
 });
+
+// Screen bleeding effect button listener
+const bleedButton = document.querySelector('.bleed-btn');
+bleedButton.addEventListener('click', () => {
+    startBleeding();
+});
+
+// Animate message box bleeding.
+const startBleeding = () => {
+    // Save blood state in local storage.
+    if (!localStorage.getItem('bloodActivated')) {
+        localStorage.setItem('bloodActivated', true);
+
+        alert('you broke it');
+
+        const bloods = Array.from(document.querySelectorAll('.blood'));
+        bloods.forEach(blood => {
+            blood.classList.remove('animated');
+            void blood.offsetWidth;
+            blood.classList.add('animated');
+        });
+    }
+}
+
+// Glitch text effect button listener.
+const glitchButton = document.querySelector('.glitch-btn');
+glitchButton.addEventListener('click', () => {
+    const messages = Array.from(document.querySelectorAll('.message-text'));
+    messages.forEach(message => {
+        glitchText(message);
+    });
+});
+
+//Add glitched class and attribute to passed text.
+const glitchText = (text) => {
+    text.classList.add('glitch');
+    text.setAttribute('text-content', text.innerText);
+}
+
+// Add glitch listener to text divs button listener.
+const glitchListenerButton = document.querySelector('.glitch-listener-btn');
+glitchListenerButton.addEventListener('click', () => {
+    const glitchables = Array.from(document.querySelectorAll('.glitchable'));
+    glitchables.forEach(message => {
+        message.addEventListener('click', () => {
+            glitchText(message);
+            processGlitchCount();
+        });
+    });
+});
+
+// Add dingbat listener to text divs button listener.
+const dingbatListenerButton = document.querySelector('.dingbat-listener-btn');
+dingbatListenerButton.addEventListener('click', () => {
+    const glitchables = Array.from(document.querySelectorAll('.glitchable'));
+    glitchables.forEach(message => {
+        message.addEventListener('click', () => {
+            message.classList.add('dingbatted');
+            message.innerText = shift(message.innerText, 1);
+
+            console.log(message.innerText);
+            console.log(shift(message.innerText, 1))
+        });
+    });
+});
+
+function shift(str, num) {
+    // you can comment this line
+    str = str.toLowerCase();
+
+    var result = '';
+    var charcode = 0;
+
+    for (var i = 0; i < str.length; i++) {
+        charcode = (str[i].charCodeAt()) + num;
+        result += String.fromCharCode(charcode);
+    }
+    return result;
+
+}
+
+let broken = false;
+
+// Count the number of glitched items, and do other stuff accordingly.
+const processGlitchCount = () => {
+    const glitched = Array.from(document.querySelectorAll('.glitch'));
+    if (glitched.length > 5 && !broken) {
+        broken = true;
+        startBleeding();
+    }
+}
+
+// Animate all mia images.
+const animateMias = (ani) => {
+    const mias = Array.from(document.querySelectorAll('.mia'));
+    mias.forEach(mia => {
+        mia.classList.remove('mia-bleeding', 'mia-crying');
+        void mia.offsetWidth;
+    });
+
+    switch (ani) {
+        case 'bleeding':
+            mias.forEach(mia => {
+                mia.classList.add('mia-bleeding');
+            });
+            break;
+
+        case 'crying':
+            mias.forEach(mia => {
+                mia.classList.add('mia-crying');
+            });
+            break;
+    }
+}
+
+
+
+// Add reset local data button event listener.
+const resetButton = document.querySelector('.reset-btn');
+resetButton.addEventListener('click', () => {
+    localStorage.clear();
+});
+
+// Add crying mia button event listener.
+const cryingButton = document.querySelector('.mia-crying-btn');
+cryingButton.addEventListener('click', () => {
+    animateMias('crying');
+});
+
+// Add bleeding mia data button event listener.
+const bleedingButton = document.querySelector('.mia-bleeding-btn');
+bleedingButton.addEventListener('click', () => {
+    animateMias('bleeding');
+});
+
+// Add bleeding mia data button event listener.
+const channelButton = document.querySelector('.add-channel-btn');
+channelButton.addEventListener('click', () => {
+    addChannel('redacted', 5);
+});
+
+// Add a new local, custom channel.
+const addChannel = (name, repeat) => {
+    const textChannels = document.getElementById('text-channels');
+
+    
+    const newChannel = () => {
+        const newChannel = document.createElement('div');
+        newChannel.classList.add('text-channel', 'channel');
+        newChannel.id = name;
+
+        const hash = document.createElement('img');
+        hash.classList.add('icon');
+        hash.src = 'images/hashtag-base.png';
+
+        const channelName = document.createElement('div');
+        channelName.classList.add('text-channel-name', 'glitchable', 'glitch');
+        channelName.innerText = name;
+        channelName.style = 'color: white';
+
+        newChannel.appendChild(hash);
+        newChannel.appendChild(channelName);
+        textChannels.appendChild(newChannel);
+
+        newChannel.addEventListener('click', () => {
+            alert('please dont touch that')
+            animateMias('crying');
+        });
+    }
+
+    // Start looping channel creation.
+    const channelInterval = setInterval(newChannel, 500);
+
+    // Stop creating channels after repeat limit.
+    setTimeout(() => {
+        clearInterval(channelInterval);
+    }, 500 * repeat);
+}
+
+// Choose a random message from all messages, strike it through,
+// add a random message and delete it from the DB.
+const deleteRandomMessage = () => {
+    const messages = Array.from(document.querySelectorAll('.message'));
+    const index = Math.floor(Math.random() * messages.length);
+
+    const message = messages[index];
+    message.style.textDecoration = 'line-through';
+
+    const text = message.querySelector('.message-text');
+
+    // Send chosen message to DB to be deleted.
+    //sendData({message: text.innerText});
+
+    const quotes = [
+        'ow ow ow this hurts',
+        'please delete your internet',
+        'touch grass before logging on again',
+        'next time youre getting deleted in real life',
+        'this guy respects women',
+        'please visit greenland',
+        '@god',
+        'everything in moderation, even soy',
+        'rule #35b: this is not bodybuilding.com',
+        'rule #35a: this is not reddit'
+    ]
+
+    const quoteChoice = quotes[Math.floor(Math.random() * quotes.length)];
+
+    const newMessage1 = document.createElement('div');
+    newMessage1.innerText = 'removed by admin with message:';
+    newMessage1.classList.add('correction', 'glitch');
+
+    const newMessage = document.createElement('div');
+    newMessage.innerText = quoteChoice;
+    newMessage.classList.add('glitch');
+    newMessage1.appendChild(newMessage);
+
+    text.appendChild(newMessage1);
+
+
+
+}
+
+// Send the data of a message to be removed.
+const sendData = (data) => {
+    const XHR = new XMLHttpRequest();
+    const FD = new FormData();
+
+    // Push our data into our FormData object
+    for (const [name, value] of Object.entries(data)) {
+        FD.append(name, value);
+    }
+
+    // Define what happens in case of error
+    XHR.addEventListener('error', (event) => {
+        console.log('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open('POST', '/delete-message');
+
+    // Send our FormData object; HTTP headers are set automatically
+    XHR.send(FD);
+}
+
+deleteRandomMessage();
+
+const initialize = (() => {
+    // Setup blood if animation has already played.
+    if (localStorage.getItem('bloodActivated')) {
+        const bloods = Array.from(document.querySelectorAll('.blood'));
+        bloods.forEach(blood => {
+            blood.classList.add('activated');
+        });
+    }
+})();

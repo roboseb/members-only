@@ -7,12 +7,14 @@ const User = require('../models/user');
 
 // POST request for adding a new message.
 exports.new_message_post = [
+    
 
     // Validate and sanitize message.
     body('message').trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
+        console.log('adding new message...')
 
         // Extract the validation errors from a request.
         const errors = validationResult(req);
@@ -45,6 +47,17 @@ exports.new_message_post = [
         }
     }
 ];
+
+exports.message_delete_post = (req, res, next) => {
+    console.log('deleting message...');
+
+    Message.remove({message: req.body.message}, function deleteCruddy(err) {
+        if (err) { return next(err); }
+        console.log(`${req.body.message} : deleted`);
+    });
+
+    res.redirect('/');
+}
 
 // GET request for home/index page.
 exports.index_get = (req, res, next) => {

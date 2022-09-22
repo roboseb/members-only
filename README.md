@@ -30,18 +30,24 @@ September 19th, 2022
 
     Channels work, most of the styling is a solid clone of discord, and I somehow got everything to scroll properly.
 
+September 20th, 2022
+
+    Welcome to the totally reasonable second day. Even though I spent more time than usual cleaning some stuff up yesterday, there's still a decent amount of work to do, mainly all the glitchy Mia stuff. And the actual members only part. But that should be pretty trivial to implement. Just need to come up with something cool for it to do.
+
+    Miiiiight be another other day.
+
 --To-Do---
 
 CANCEL(discord layout)-Fade in on scroll like fireship's video
--Add in mia
--random delete messages
--eye scrolling animations
+DONE-Add in mia
+DONE-random delete messages
+CANCEL-eye scrolling animations
 -random change messages' data
 DONE-little password eyeball
 DONE-invalid login errors
 DONE-basic layout
 -fake random user flags like, "banned", "suspended" etc.
--screen bleeding effect (overly realistic)
+DONE-screen bleeding effect (overly realistic)
 DONE-message timestamp
 -UI elements start bugging out
 -randomly replace characters with dingbats(rakugaki)
@@ -53,3 +59,10 @@ DONE-test/setup overflowing users
 -credits page somewhere
 CANCEL-@ mention stylings
 DONE-style signup/sign in
+- uncomment sendData
+
+
+---Credits---
+
+-Blood art - shutterstock
+-glitch effect - https://codepen.io/cbanlawi/pen/xxRBeMY christine banlawi

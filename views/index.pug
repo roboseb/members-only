@@ -3,6 +3,18 @@ extends layout
 block content
 
     #homebox
+        #mia-controls   
+            button.bleed-btn Bleed
+            button.glitch-btn Glitch
+            button.glitch-listener-btn Add glitch listeners
+            button.dingbat-listener-btn Add dingbat listeners
+            button.reset-btn Reset
+            button.mia-crying-btn Crying
+            button.mia-bleeding-btn Bleeding
+            button.add-channel-btn New Channel
+            .glitch codepen
+            .glitch(text-content='glitchtest') glitchtest
+
         #server-icons
             .server-icon.discord-icon-box
                 .server-icon-image.discord-icon(style="background-image: url('/images/discord.png')")
@@ -10,7 +22,7 @@ block content
             .server-icon.notification
                 .server-icon-image(style="background-image: url('/images/odin.webp')")
             .server-icon.selected
-                .server-icon-image.mia(style="background-image: url('/images/mia-base.png')")
+                .server-icon-image.mia(style="background-image: url('/images/mia.webp')")
             .server-icon.server-option
                 .server-icon-image(style="background-image: url('/images/plus2.svg')")
             .server-icon.notification.server-option
@@ -18,27 +30,27 @@ block content
         #server-content
             #channel-list 
                 #channels-header.header 
-                    div Discord IM
+                    .discord-channel-header.glitchable Discord IM
                     img.icon(src='images/chevron-down.svg')
                 #text-channels
                     - var textChannels = ['welcome', 'general', 'memes']
                     .channel-header 
                         img.icon(src='images/chevron-down.svg')
-                        div TEXT CHANNELS
+                        div.glitchable TEXT CHANNELS
                     each channel in textChannels 
                         .text-channel.channel(class=`${channel === 'general' ? 'selected' : ''}` id=`${channel}`)
                             img.icon(src='images/hashtag-base.png')
-                            .text-channel-name= channel
+                            .text-channel-name.glitchable= channel
 
                 #voice-channels
                     - var voiceChannels = ['welcome', 'general']
                     .channel-header 
                         img.icon(src='images/chevron-down.svg')
-                        div VOICE CHANNELS
+                        div.glitchable VOICE CHANNELS
                     each channel in voiceChannels 
                         .voice-channel(id=`${channel}-voice`)
                             img.icon(src='images/sound.png')
-                            .voice-channel-name= channel 
+                            .voice-channel-name.glitchable= channel 
                 
                 #channel-filler(style='flex-grow: 1')
 
@@ -48,11 +60,11 @@ block content
                     if user
                         #user-info-data
                             .user-pic 
-                                .pic-dingbat= user.pic
+                                .pic-dingbat.glitchable= user.pic
                                 .user-online-circle  
                             #user-data
-                                div= user.username
-                                div(style='filter: opacity(0.7)')= user.code ? `#${user.code}` : `#${code}`
+                                div.glitchable= user.username
+                                div.glitchable(style='filter: opacity(0.7)')= user.code ? `#${user.code}` : `#${code}`
 
                     #user-info-icons
                         img(src='images/mic.png')
@@ -61,6 +73,8 @@ block content
 
 
             #messages-container
+                .blood1.blood(style="background-image: url('/images/blood1.webp')")
+                .blood2.blood(style="background-image: url('/images/blood2.webp')")
                 each channel in ['welcome', 'general', 'memes']
                     .message-box(class=`${channel} visible`)
                         img.icon.plus-icon(src='images/plus.svg')
@@ -73,7 +87,7 @@ block content
                                 input(type='text' name='message' placeholder=`Message #${channel}` autocomplete="off")
                                 input(type='submit' hidden)
                         else
-                            div.placeholder Sign in to post!
+                            div.placeholder.glitchable Sign in to post!
                         img.icon(src='images/gift.png')
                         img.icon(src='images/gif.png')
                         img.icon(src='images/file.png')
@@ -86,9 +100,9 @@ block content
                                 if message.channel === channel
                                     .message
                                         .user-pic 
-                                            .pic-dingbat= message.pic 
+                                            .pic-dingbat.glitchable= message.pic 
                                         .message-content
-                                            .message-username(style=`${message.username === 'roboseb' ? 'color: aquamarine' : ''}`)= message.username
+                                            .message-username.glitchable(style=`${message.username === 'roboseb' ? 'color: aquamarine' : ''}`)= message.username
                                                 - var recentDate = false 
                                                 - var date = new Date()
                                                 - var hours = message.postDate.getHours()
@@ -103,13 +117,13 @@ block content
                                                     if hours === 0
                                                         - hours = 12 
 
-                                                .message-date= recentDate ? `Today at ${hours}:${message.postDate.getMinutes()} ${am ? 'am' : 'pm'}` : message.postDate.toLocaleDateString("en-US")
-                                            .message-text= message.message
+                                                .message-date.glitchable= recentDate ? `Today at ${hours}:${message.postDate.getMinutes()} ${am ? 'am' : 'pm'}` : message.postDate.toLocaleDateString("en-US")
+                                            .message-text.glitchable= message.message
                                         
                                         
                     
                     .messages-header.header(class=`${channel} visible`)
-                        div= `# ${channel}`
+                        div.glitchable= `# ${channel}`
                         .messages-header-icons 
                             img.icon(src='images/hashtag.png')
                             img.icon(src='images/bell.png')
@@ -126,20 +140,21 @@ block content
                             img.icon(src='images/inbox.png')
                             img.icon(src='images/help.png')
 
-                    .user-list-category MIA - 1
+                    .user-list-category.glitchable MIA - 1
                     .user-list-user 
-                        .user-pic 
-                            .pic-dingbat= 'a'
+                        .user-pic.mia-pic
+                            .pic-dingbat.glitchable(style='color: transparent') a
+                            .mia-dingbat.mia(style='background-image: url("/images/mia.webp")')
                             .user-online-circle.mia-circle
-                        .user-list-username(style='color: hotpink') mia
+                        .user-list-username(style='color: hotpink').glitchable mia
 
-                    .user-list-category= `ONLINE - ${data.user_count}` 
+                    .user-list-category.glitchable= `ONLINE - ${data.user_count}` 
                     each user in data.user_list 
                         .user-list-user 
                             .user-pic 
-                                .pic-dingbat= user.pic 
+                                .pic-dingbat.glitchable= user.pic 
                                 .user-online-circle 
-                            .user-list-username(style=`${user.username === 'roboseb' ? 'color: aquamarine' : ''}`)= user.username
+                            .user-list-username.glitchable(style=`${user.username === 'roboseb' ? 'color: aquamarine' : ''}`)= user.username
 
 
 

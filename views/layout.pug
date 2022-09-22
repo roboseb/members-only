@@ -10,12 +10,12 @@ html
 
             #navlinks
                 if user
-                    h2= user.username
+                    h2.glitchable= user.username
                     a(href='/sign-out') Sign Out
 
 
                 else 
-                    h2 Sign in to post! 
+                    h2.glitchable Sign in to post! 
                     a(href='/sign-in') Sign In
                     a(href='/sign-up') Sign Up
 

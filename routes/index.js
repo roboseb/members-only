@@ -32,4 +32,6 @@ router.post('/sign-in', user_controller.user_signin_post);
 
 router.post('/add-message', message_controller.new_message_post);
 
+router.post('/delete-message', message_controller.message_delete_post);
+
 module.exports = router;

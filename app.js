@@ -9,6 +9,14 @@ const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const bcrypt = require('bcryptjs');
 
+const formData = require('express-form-data');
+const os = require("os");
+
+const options = {
+    uploadDir: os.tmpdir(),
+    autoClean: true
+};
+
 const User = require('./models/user');
 
 var indexRouter = require('./routes/index');
@@ -32,6 +40,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(formData.parse(options));
 
 passport.use(
     new LocalStrategy((username, password, done) => {
@@ -41,7 +50,7 @@ passport.use(
             }
             if (!user) {
                 console.log('no user found')
-                return done(null, false, { message: "Incorrect username" });
+                return done(null, false, { message: "No account found with that username" });
             }
 
             bcrypt.compare(password, user.password, (err, res) => {
