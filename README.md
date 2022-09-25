@@ -36,6 +36,16 @@ September 20th, 2022
 
     Miiiiight be another other day.
 
+September 21th, 2022
+
+    Welcome to the next next day, with a totally unknown level of reasonability.
+
+    Knock on wood, but there's really not a ton left to do, so it should be done today. The bulk of work should be adding a better mobile layout, and then really laying out the glitch "progression". Or deciding if it'll all just be specific triggers and doesn't really have an order. Not sure yet. Just need to move the glitches away from this littl debug panel to something else. I think I'll leave the button panel is as a secret somewhere though.
+
+    Ow! (Splidao!) [I Like It, Though] by Hail the Sun is the song of the day. It's from their second album as far as I can see, so I checked out their first album, and the first song on there is conceptually cool but sounds like shit, so I will be looking at newer albums. As a side note, found out yesterday that this type of music is called post-hardcore. Much worse name than my suggestion, 'progunk'.
+
+
+
 --To-Do---
 
 CANCEL(discord layout)-Fade in on scroll like fireship's video
@@ -50,19 +60,24 @@ DONE-basic layout
 DONE-screen bleeding effect (overly realistic)
 DONE-message timestamp
 -UI elements start bugging out
--randomly replace characters with dingbats(rakugaki)
+DONE-randomly replace characters with dingbats(rakugaki)
 DONE-fix dates
 DONE-add actual channel funcitonality
 -mobile support
 DONE-test/setup overflowing users
--change my password
--credits page somewhere
+DONE-change my password
+DONE-credits page somewhere
 CANCEL-@ mention stylings
 DONE-style signup/sign in
 - uncomment sendData
+- members only shit
 
 
 ---Credits---
 
 -Blood art - shutterstock
 -glitch effect - https://codepen.io/cbanlawi/pen/xxRBeMY christine banlawi
+
+-fonts
+-icons
+-mia art

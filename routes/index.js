@@ -12,12 +12,17 @@ router.get('/', message_controller.index_get);
 
 /* GET sign-up page. */
 router.get('/sign-up', function (req, res, next) {
-    res.render('sign-up', { title: 'Express' });
+    res.render('sign-up', { title: 'Sign Up' });
 });
 
 /* GET sign-in page. */
 router.get('/sign-in', function (req, res, next) {
-    res.render('sign-in', { title: 'Express' });
+    res.render('sign-in', { title: 'Sign In' });
+});
+
+/* GET sign-in page. */
+router.get('/membership', function (req, res, next) {
+    res.render('membership', { title: 'Membership' });
 });
 
 /* GET sign-out request. */

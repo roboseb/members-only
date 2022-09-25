@@ -28,6 +28,7 @@ block content
             .server-icon.notification.server-option
                 .server-icon-image(style="background-image: url('/images/compass.png')")
         #server-content
+
             #channel-list 
                 #channels-header.header 
                     .discord-channel-header.glitchable Discord IM
@@ -102,7 +103,7 @@ block content
                                         .user-pic 
                                             .pic-dingbat.glitchable= message.pic 
                                         .message-content
-                                            .message-username.glitchable(style=`${message.username === 'roboseb' ? 'color: aquamarine' : ''}`)= message.username
+                                            .message-username.glitchable(style=`${message.username === 'roboseb' ? 'color: aquamarine' : ''}` class=`${user && user.member ? '' : 'redacted'}`)= message.username
                                                 - var recentDate = false 
                                                 - var date = new Date()
                                                 - var hours = message.postDate.getHours()
@@ -117,8 +118,11 @@ block content
                                                     if hours === 0
                                                         - hours = 12 
 
-                                                .message-date.glitchable= recentDate ? `Today at ${hours}:${message.postDate.getMinutes()} ${am ? 'am' : 'pm'}` : message.postDate.toLocaleDateString("en-US")
-                                            .message-text.glitchable= message.message
+                                                .message-date.glitchable9(class=`${user && user.member ? '' : 'redacted'}`)= recentDate ? `Today at ${hours}:${message.postDate.getMinutes()} ${am ? 'am' : 'pm'}` : message.postDate.toLocaleDateString("en-US")
+                                            .message-text.glitchable(class=`${user && user.member ? '' : 'redacted-text'}`)= message.message
+                                        if user && user.admin
+                                            .delete-message-btn Delete
+
                                         
                                         
                     
@@ -133,12 +137,28 @@ block content
             #user-list-container
                 #user-list.custom-scroll
                     #user-list-header.header
+                        #help-panel.hidden
+                            p Hey, Seb here. This project is my submission for the Odin Project's Members-only project. Project project project.
+                            p Obviously, it's "loosely" based on discord's layout. The UI that I took from discord only extends to this home page, so you can't make servers, channels, friends, or any other complex stuff. You can, however, sign up and send messages to three different channels.
+                            p Ever read a creepypasta? This is my representation of what a discord creepypasta would look like. I imagine something similar to this has already been written, but I literally haven't read a creepypasta since discord launched, so I have no idea. 
+                            p Placeholder text for instruction on how to trigger glitches.
+                            h3 Credits
+                            ul 
+                                li Blood art - Shutterstock #[a(href='https://www.shutterstock.com/image-photo/blood-drips-oozing-down-macro-111537161') (shutterstock)]
+                                li Glitched text effect - Christine Banlawi #[a(href='https://codepen.io/cbanlawi/pen/xxRBeMY') (codepen)]
+                                li Uni Sans font - Dafontfree #[a(href='https://www.dafontfree.io/uni-sans-font/') (dafontfree)]
+                                li Rakugaki dingbats - Dafont #[a(href='https://www.dafont.com/rakugaki.font') (dafont)]
+                                li Most SVG icons - Feathericons #[a(href='https://feathericons.com/') (feathericons)]
+                                li Other icons - Icons8 #[a(href='https://icons8.com/') (icons8)]
+                                li Odin icon - ripped from discord #[a(href='https://cdn.discordapp.com/icons/505093832157691914/45da89e7ff07681319bfc6b66e969abe.webp?size=96') (discord CDN)]
+                                li Mia icon - Me, your boy #[a(href='https://roboseb.github.io/portfolio/') (seb's portfolio)]
+
                         #searchbar
                             input(type='text' placeholder='Search')
                             img.icon
                         #user-list-header-icons
                             img.icon(src='images/inbox.png')
-                            img.icon(src='images/help.png')
+                            img.icon.help-btn(src='images/help.png')
 
                     .user-list-category.glitchable MIA - 1
                     .user-list-user 

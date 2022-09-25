@@ -231,7 +231,7 @@ channelButton.addEventListener('click', () => {
 const addChannel = (name, repeat) => {
     const textChannels = document.getElementById('text-channels');
 
-    
+
     const newChannel = () => {
         const newChannel = document.createElement('div');
         newChannel.classList.add('text-channel', 'channel');
@@ -264,6 +264,52 @@ const addChannel = (name, repeat) => {
         clearInterval(channelInterval);
     }, 500 * repeat);
 }
+
+// Show the info panel on help button click.
+const helpButton = document.querySelector('.help-btn');
+helpButton.addEventListener('click', () => {
+    const helpPanel = document.getElementById('help-panel');
+    helpPanel.classList.toggle('hidden');
+});
+
+// Delete message on delete button click.
+const deleteButtons = Array.from(document.querySelectorAll('.delete-message-btn'));
+deleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const message = button.parentElement.querySelector('.message-text').innerText;
+        sendData({ message: message });
+
+        const messageBox = button.parentElement;
+        messageBox.remove();
+    });
+});
+
+// Redact random text if user if not member.
+const texts = Array.from(document.querySelectorAll('.redacted-text'));
+texts.forEach(message => {
+
+    // Split the message on spaces.
+    const messageArray = message.innerText.split(' ');
+
+    // Clear the original message.
+    message.innerText = '';
+
+    // Cycle through words and randomly redact some.
+    messageArray.forEach(word => {
+        const newWord = document.createElement('span');
+        
+        const roll = Math.floor(Math.random() * 2);
+        console.log(roll);
+
+        if (word !== ' ' && roll > 0) {
+            newWord.classList.add('redacted-word');
+        }
+
+        newWord.innerText = word + ' ';
+        message.appendChild(newWord);
+    });
+});
+
 
 // Choose a random message from all messages, strike it through,
 // add a random message and delete it from the DB.
@@ -304,9 +350,6 @@ const deleteRandomMessage = () => {
     newMessage1.appendChild(newMessage);
 
     text.appendChild(newMessage1);
-
-
-
 }
 
 // Send the data of a message to be removed.
@@ -330,8 +373,6 @@ const sendData = (data) => {
     // Send our FormData object; HTTP headers are set automatically
     XHR.send(FD);
 }
-
-deleteRandomMessage();
 
 const initialize = (() => {
     // Setup blood if animation has already played.

@@ -9,7 +9,8 @@ const UserSchema = new Schema(
         password: { type: String, required: true },
         member: {type: Boolean},
         pic: {type: String, required: true},
-        code: {type: String, required: true}
+        code: {type: String, required: true},
+        admin: {type: Boolean}
     }
 );
 
