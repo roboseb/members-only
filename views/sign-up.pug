@@ -14,7 +14,8 @@ block content
                     img.hidden(src='images/eye.svg')
             input.password(name="password" type="password" placeholder='shutUpAndJam' required) 
 
-            label.pass(for='confirmPassword') Confirm Password 
+            label.pass(for='confirmPassword') 
+                .confirm-pass Confirm Password 
                 .eye
                     img.hidden(src='images/eye.svg')
             input.password(name="confirmPassword" type="password"  placeholder='shutUpAndJam' required)
@@ -31,3 +32,5 @@ block content
                 ul.account-error 
                     each error in errors
                         li= error.msg
+
+    script(src='javascripts/sign-up.js')

@@ -12,6 +12,7 @@ block content
             button.mia-crying-btn Crying
             button.mia-bleeding-btn Bleeding
             button.add-channel-btn New Channel
+            button.hide-btn Hide
 
         #server-icons
             .server-icon.discord-icon-box
@@ -22,12 +23,12 @@ block content
             .server-icon.selected
                 .server-icon-image.mia(style="background-image: url('/images/mia.webp')")
             .server-icon.server-option.plus-server
-                .server-icon-image.new-channel(style="background-image: url('/images/plus2.svg')")
+                .server-icon-image.new-channel.green-icon(style="background-image: url('/images/plus2.svg')")
             .server-icon.notification.server-option
-                .server-icon-image(style="background-image: url('/images/compass.png')")
+                .server-icon-image.green-icon(style="background-image: url('/images/compass.png')")
         #server-content
 
-            #channel-list 
+            #channel-list.mobile
                 #channels-header.header 
                     .discord-channel-header.glitchable Discord IM
                     img.icon(src='images/chevron-down.svg')
@@ -125,12 +126,14 @@ block content
                                         
                     
                     .messages-header.header(class=`${channel} visible`)
-                        div.glitchable= `# ${channel}`
+                        div.messages-channel-name
+                            img.burger-btn(src='images/menu.svg')
+                            div.glitchable= `# ${channel}`
                         .messages-header-icons 
                             img.icon(src='images/hashtag.png')
                             img.icon(src='images/bell.png')
                             img.icon(src='images/pin.png')
-                            img.icon(src='images/users.png')
+                            img.icon.users-btn(src='images/users.png')
 
             #user-list-container
                 #user-list.custom-scroll
@@ -139,7 +142,8 @@ block content
                             p Hey, Seb here. This project is my submission for the Odin Project's Members-only project. Project project project.
                             p Obviously, it's "loosely" based on discord's layout. The UI that I took from discord only extends to this home page, so you can't make servers, channels, friends, or any other complex stuff. You can, however, sign up and send messages to three different channels.
                             p Ever read a creepypasta? This is my representation of what a discord creepypasta would look like. I imagine something similar to this has already been written, but I literally haven't read a creepypasta since discord launched, so I have no idea. 
-                            p Placeholder text for instruction on how to trigger glitches.
+                            p Many elements of this page seem to do nothing. They are actually slowly breaking the app thanks to Mia, the sentient AI.
+                            p The membership page is a puzzle. Within the apply button and the attached sticky note, you should fint all the hints you need, but you'll still need to think a little to solve it. There are actually two solutions, and only the "true" solution will grant membership.
                             h3 Credits
                             ul 
                                 li Blood art - Shutterstock #[a(href='https://www.shutterstock.com/image-photo/blood-drips-oozing-down-macro-111537161') (shutterstock)]

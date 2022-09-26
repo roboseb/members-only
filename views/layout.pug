@@ -3,15 +3,18 @@ html
     head
         title Discord Instant Messenger
         link(rel='stylesheet' href='/stylesheets/style.css')
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1')
     body
 
         div#navbar 
-            a(href='/') Discord Instant Messenger
+            a(href='/').nav-title Discord Instant Messenger
 
             #navlinks
                 if user
                     if user.member 
                         h2.glitchable.status Member
+                    .padder
                     h2.glitchable= user.username
                     a(href='/sign-out') Sign Out
                     a(href='/membership') Membership
@@ -19,6 +22,7 @@ html
 
                 else 
                     h2.glitchable Sign in to post! 
+                    .padder
                     a(href='/sign-in') Sign In
                     a(href='/sign-up') Sign Up
 

@@ -8,6 +8,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const bcrypt = require('bcryptjs');
+const compression = require("compression");
+const helmet = require("helmet");
 
 const formData = require('express-form-data');
 const os = require("os");
@@ -35,6 +37,9 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(compression()); // Compress all routes
+
+app.use(helmet());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

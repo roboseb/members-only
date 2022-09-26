@@ -10,9 +10,11 @@
 
     --messagebox-height: 400px;
     --button-color: red;
+
+    --channel-list-left: 25%;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
     #user-list-header>#user-list-header-icons {
         display: none;
     }
@@ -24,6 +26,169 @@
     #messages-container>.message-box>img:not(.plus-icon) {
         display: none;
     }
+
+    #server-content>#user-list-container {
+        position: absolute;
+
+        top: 0;
+        right: 0;
+
+        z-index: 1;
+        height: 100%;
+        width: calc(85% - 15px);
+    }
+
+    #user-list>#user-list-header {
+        padding: 13px 10px 14px 13px;
+    }
+
+    .user-list-user>.user-list-username {
+        width: initial;
+        flex-grow: 1;
+    }
+
+    #server-content>#channel-list.mobile {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        z-index: 1;
+        height: 100%;
+        width: calc(85vw - var(--channel-list-left));
+        left: calc(var(--channel-list-left));
+
+        border-radius: 10px 10px 0% 0%;
+
+    }
+
+    #homebox>#server-icons {
+        box-sizing: border-box;
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        z-index: 1;
+        height: 100%;
+    }
+
+    #homebox>#server-icons>.server-icon {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    #homebox>#server-icons>.server-icon>.server-icon-image:not(.green-icon) {
+        background-size: contain;
+    }
+
+    .server-icon.discord-icon-box>.server-icon-image {
+        background-size: 70% !important;
+    }
+
+    #homebox>#server-content {
+        overflow: hidden;
+        background-color: transparent;
+
+    }
+
+    #server-content>#messages-container {
+        transition: all 0.2s;
+
+        box-sizing: border-box;
+
+        max-width: 100%;
+        z-index: 2;
+
+    }
+
+    #server-content>#messages-container.shifted-right {
+        transform: translate(85%);
+        filter: brightness(0.6);
+    }
+
+    #server-content>#messages-container.shifted-left {
+        transform: translate(-85%);
+        filter: brightness(0.6);
+    }
+
+    #main>#homebox {
+        box-sizing: border-box;
+        background-color: var(--discord-server-icons);
+    }
+
+
+    body>#navbar {
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
+
+    body>#navbar>.nav-title {
+        display: none;
+    }
+
+    body>#navbar>#navlinks {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .messages-header-icons>.icon:not(.users-btn) {
+        display: none;
+    }    
+
+    .hidden-ui {
+        display: none !important;
+    }
+
+    #main>.membership {
+        padding: 0;
+        gap: initial;
+
+        max-height: 100%;
+    }
+
+    .membership #code-box {
+        max-width: 100vw;
+        
+        padding: 0px 20px;
+
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 40px 0px 120px 0px;
+    }
+
+    .membership .code-input-box {
+        font-size: 3rem;
+        margin-bottom: 40px;
+
+        height: 50%;
+    }
+
+    .membership .solehint {
+        box-sizing: border-box;
+        height: 30vw;
+        width: 30vw;
+    }
+
+    .membership .solehint:hover {
+        height: 70vw;
+        width: 70vw;
+    }
+
+    #navlinks>.padder {
+        flex-grow: 1;
+    }
+}
+
+.burger-btn {   
+    cursor: pointer;
+}
+
+.messages-channel-name {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -60,6 +225,8 @@ body {
 
     height: 100vh;
     width: 100vw;
+
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 a {
@@ -111,11 +278,11 @@ a {
 }
 
 #homebox {
-    background-color: red;
     height: 100%;
     width: 100%;
 
     display: flex;
+    position: relative;
 }
 
 #server-icons {
@@ -183,7 +350,6 @@ a {
 
     background-repeat: no-repeat;
     background-position: center;
-
     height: 100%;
     width: 100%;
     border-radius: 100%;
@@ -242,6 +408,7 @@ a {
 
 #channel-list {
     background-color: var(--discord-users-channels);
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
@@ -1047,6 +1214,18 @@ a {
     display: initial;
 }
 
+#mia-controls>.hide-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    transform: translateX(100%);
+}
+
+#mia-controls.hidden {
+    transform: translateX(-100%);
+}
+
 .glitch {
     position: relative;
     text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
@@ -1660,7 +1839,7 @@ button.granted:hover {
     background: rgb(115,138,219);
     background: linear-gradient(310deg, rgba(115,138,219,1) 0%, rgba(115,138,219,1) 25%, rgb(255, 255, 255) 40%, rgb(255, 255, 255)60%, rgba(115,138,219,1) 75%, rgba(115,138,219,1) 100%);
     background-size: 400% 400%;
-    padding: 4px 5px;
+    padding: 4px 7px;
     border-radius: 5px;
 
     animation: memberani 3s infinite;

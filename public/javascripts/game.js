@@ -5,7 +5,12 @@ const gameLogic = (() => {
     const refHeight = refDigit.offsetHeight;
 
     // Set default code box height.
-    codeBox.style.height = `${refHeight}px`;
+    const x = window.matchMedia("(max-width: 800px)");
+    if (!x.matches) {
+        codeBox.style.height = `${refHeight}px`;
+    } else {
+        codeBox.style.height = `${refHeight * 2}px`;
+    }
 
     // Current positions for each scroller.
     let currentPositions = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -46,8 +51,6 @@ const gameLogic = (() => {
 
             const position = currentPositions[index] - 1;
 
-            console.log(position)
-
             const element = scroller.querySelector(`.number${position}`)
 
             element.scrollIntoView({ behavior: 'smooth' });
@@ -74,7 +77,7 @@ const gameLogic = (() => {
             }
         });
 
-        const key2 = [5, 3, 1, 1, 1, 7, 4, 0, 4];
+        const key2 = [5, 3, 1, 1, 1, 7, 7, 0, 4];
 
         let altCorrect = true;
 

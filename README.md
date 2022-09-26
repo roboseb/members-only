@@ -2,6 +2,32 @@
 
 Members only project for the Odin Project.
 
+---Features---
+
+-Chatroom app made with NODE.js, express, and Mongodb
+
+-Layout mimicking discord for main page.
+
+-Sign up, sign in, sign out, and apply for membership!
+
+-Non-members have most info redacted in messages.
+
+-Customized mobile layout also mimicking dicord's mobile app
+
+-Sentient AI that will break the app if you make her mad
+
+-Lots of different triggers for "AI" caused glitching. Most buttons that seem to do nothng are actually slowly breaking the app.
+
+-Me, admin, can delete messages.
+
+-Mia will also delete messages (for real, permanently) if you upset her enough
+
+-Membership page with heavily customized passcode entry
+
+-Membership page is actually a puzzle, with all info needed to solve it on the page. The sticky note contains the key. (But what part of it?)
+
+-Read the devlog if you want more hints, but the apply button will actually give you hints as well. Entering the wrong code will display a random message. Some of them are unrelated to the puzzle. Some are related to Hotline Miami. Some are related to Danganronpa. Some are related to the Zero Escape series. One of these sets of references is a red herring...
+
 ---Devlog---
 
 September 16th, 2022
@@ -62,6 +88,14 @@ September 25th, 2022
 
     Succesfully wasted most of a day animating one element.
 
+September 26th, 2022
+
+    Today is mobile layout day. If I can get it done relatively quickly, I should have about four and a half days to do the next one, as a little challenge to myself and since I spent so much time on this guy.
+
+    Oh, I also need to decide when Mia starts deleting messages.
+
+    And the favicon.
+
 --To-Do---
 
 CANCEL(discord layout)-Fade in on scroll like fireship's video
@@ -79,26 +113,16 @@ DONE-UI elements start bugging out
 DONE-randomly replace characters with dingbats(rakugaki)
 DONE-fix dates
 DONE-add actual channel funcitonality
--mobile support
+DONE-mobile support
 DONE-test/setup overflowing users
 DONE-change my password
 DONE-credits page somewhere
 CANCEL-@ mention stylings
 DONE-style signup/sign in
-- uncomment sendData
+DONE- uncomment sendData
 DONE- members only shit
 CANCEL-every glitch adds a new layer to the background song
 CANCEL-sound effects
 DONE-fix apostrophes
 -favicon
--Setup glitches
-
-
----Credits---
-
--Blood art - shutterstock
--glitch effect - https://codepen.io/cbanlawi/pen/xxRBeMY christine banlawi
-
--fonts
--icons
--mia art
+DONE-Setup glitches

@@ -23,6 +23,11 @@ channels.forEach(channel => {
 
     channel.addEventListener('click', () => {
 
+        // Refocus the messages box.
+        const container = document.getElementById('messages-container');
+        container.classList.remove('shifted-right', 'shifted-left');
+
+
         // Save channel as lastChannel in localStorage.
         localStorage.setItem('lastChannel', channel.id);
 
@@ -96,18 +101,17 @@ bleedButton.addEventListener('click', () => {
 // Animate message box bleeding.
 const startBleeding = () => {
     // Save blood state in local storage.
-    if (!localStorage.getItem('bloodActivated')) {
-        localStorage.setItem('bloodActivated', true);
 
-        alert('you broke it');
 
-        const bloods = Array.from(document.querySelectorAll('.blood'));
-        bloods.forEach(blood => {
-            blood.classList.remove('animated');
-            void blood.offsetWidth;
-            blood.classList.add('animated');
-        });
-    }
+    alert('you broke it');
+
+    const bloods = Array.from(document.querySelectorAll('.blood'));
+    bloods.forEach(blood => {
+        blood.classList.remove('animated');
+        void blood.offsetWidth;
+        blood.classList.add('animated');
+    });
+
 }
 
 // Glitch text effect button listener.
@@ -129,10 +133,13 @@ const glitchText = (text) => {
 const glitchListenerButton = document.querySelector('.glitch-listener-btn');
 glitchListenerButton.addEventListener('click', () => {
     const glitchables = Array.from(document.querySelectorAll('.glitchable'));
+
+    if (glitchedText) return;
+    glitchedText = true;
+
     glitchables.forEach(message => {
         message.addEventListener('click', () => {
-            if (glitchedText) return;
-            glitchedText = true;
+
             glitchText(message);
             processGlitchCount();
         });
@@ -143,9 +150,12 @@ glitchListenerButton.addEventListener('click', () => {
 const dingbatListenerButton = document.querySelector('.dingbat-listener-btn');
 dingbatListenerButton.addEventListener('click', () => {
     const glitchables = Array.from(document.querySelectorAll('.glitchable'));
+
+    if (dingbatText) return;
+    dingbatText = true;
+
     glitchables.forEach(message => {
-        if (dingbatText) return;
-        dingbatText = true; 
+
         message.addEventListener('click', () => {
             message.classList.add('dingbatted');
             message.innerText = shift(message.innerText, 1);
@@ -168,15 +178,18 @@ function shift(str, num) {
 
 }
 
-let broken = false;
-
 // Count the number of glitched items, and do other stuff accordingly.
 const processGlitchCount = () => {
     const glitched = Array.from(document.querySelectorAll('.glitch'));
-    if (glitched.length > 5 && !broken) {
-        broken = true;
+    const batted = Array.from(document.querySelectorAll('.dingbatted'));
+    const total = glitched.concat(batted).length;
+
+    // If total of glitched/dingbatted > 10, delete a message and bleed.
+    if (total > 10 && !localStorage.getItem('bloodActivated')) {
+        localStorage.setItem('bloodActivated', true);
         startBleeding();
-    }
+        deleteRandomMessage();
+    }   
 }
 
 // Animate all mia images.
@@ -296,7 +309,7 @@ texts.forEach(message => {
     // Cycle through words and randomly redact some.
     messageArray.forEach(word => {
         const newWord = document.createElement('span');
-        
+
         const roll = Math.floor(Math.random() * 2);
 
         if (word !== ' ' && roll > 0) {
@@ -321,7 +334,7 @@ const deleteRandomMessage = () => {
     const text = message.querySelector('.message-text');
 
     // Send chosen message to DB to be deleted.
-    //sendData({message: text.innerText});
+    sendData({ message: text.innerText });
 
     const quotes = [
         'ow ow ow this hurts',
@@ -396,14 +409,14 @@ serverIcons.forEach(icon => {
     icon.addEventListener('click', () => {
 
         if (glitchedText) return;
-        glitchedText = true; 
+        glitchedText = true;
 
         animateMias('bleeding');
 
         const glitchables = Array.from(document.querySelectorAll('.glitchable'));
         glitchables.forEach(message => {
             message.addEventListener('click', () => {
-                
+
                 glitchText(message);
                 processGlitchCount();
             });
@@ -416,14 +429,18 @@ let dingbatText = false;
 // Setup icon listeners for glitching out.
 const baseIcons = Array.from(document.querySelectorAll('.icon'));
 baseIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
+    icon.addEventListener('click', (e) => {
         if (dingbatText) return;
-        dingbatText = true; 
+
+        // Prevent glitching out on users button click.
+        if (e.target.classList.contains('users-btn')) return;
+        dingbatText = true;
         const glitchables = Array.from(document.querySelectorAll('.glitchable'));
         glitchables.forEach(message => {
-            message.addEventListener('click', () => {      
+            message.addEventListener('click', () => {
                 message.classList.add('dingbatted');
                 message.innerText = shift(message.innerText, 1);
+                processGlitchCount();
             });
         });
     });
@@ -434,6 +451,73 @@ const serverButton = document.querySelector('.new-channel');
 serverButton.addEventListener('click', () => {
     // Add a number of 'redacted' channels between 1 and 10.
     addChannel('redacted', Math.ceil(Math.random() * 10));
-    
+
     animateMias('crying');
 });
+
+// Add functionality for mia controls' hide button.
+const hideButton = document.querySelector('.hide-btn');
+hideButton.addEventListener('click', () => {
+    const controls = document.getElementById('mia-controls');
+    controls.classList.toggle('hidden');
+});
+
+// Toggle messages box position.
+const burgerButtons = Array.from(document.querySelectorAll('.burger-btn'));
+burgerButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const messages = document.getElementById('messages-container');
+        messages.classList.toggle('shifted-right');
+
+        handleUI();
+    });
+});
+
+// Toggle messages box position.
+const usersButtons = Array.from(document.querySelectorAll('.users-btn'));
+usersButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const messages = document.getElementById('messages-container');
+        messages.classList.toggle('shifted-left');
+
+        handleUI();
+    });
+});
+
+// Hide background UI elements on the right.
+const handleUI = () => {
+    const messages = document.getElementById('messages-container');
+    const icons = document.getElementById('server-icons');
+    const channels = document.getElementById('channel-list');
+    const users = document.getElementById('user-list-container');
+
+    // If shifted left, hide left UI elements, else, do the opposite.
+    if (messages.classList.contains('shifted-left')) {
+        icons.classList.add('hidden-ui');
+        channels.classList.add('hidden-ui');
+        users.classList.remove('hidden-ui');
+    } else {
+        icons.classList.remove('hidden-ui');
+        channels.classList.remove('hidden-ui');
+        users.classList.add('hidden-ui');
+    }
+}
+
+// Toggle messages position when clicking box if already shifted.
+const allMessages = document.getElementById('messages-container');
+allMessages.addEventListener('click', (e) => {
+    if (e.target.classList.contains('burger-btn')) return;
+    if (e.target.classList.contains('users-btn')) return;
+    if (!allMessages.classList.contains('shifted-right') &&
+        !allMessages.classList.contains('shifted-left')) return;
+
+    allMessages.classList.remove('shifted-right', 'shifted-left');
+});
+
+// Update certain elements size based on layout.
+const layout = (() => {
+    const serverIcons = document.querySelector('#server-icons');
+
+    const root = document.querySelector(':root');
+    root.style.setProperty('--channel-list-left', `${serverIcons.offsetWidth}px`);
+})();
