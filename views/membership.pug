@@ -3,7 +3,6 @@ extends layout
 block content
 
     .sign-in.membership
-
         h1 Member Application
 
         #code-box
@@ -11,15 +10,18 @@ block content
             - var digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             each code in codes
                 .code-input-box
-                    button.scroll-btn.scroll-up up 
-                    button.scroll-btn.scroll-down down
+                    button.scroll-btn.scroll-up 
+                    button.scroll-btn.scroll-down
                     .scrolling
                         each digit, index in digits 
                             .digit(class=`number${index}`)= digit
 
 
+        button.apply-btn(afterText='Apply') Apply
 
-
-        img.solehint(src='images/solehint.png')
-
+        .solehint
+            .sticky(style="background-image: url('/images/sticky.png')")
+            .hint-text(style="background-image: url('/images/solehint.png')")
+            
+    script var currentUser = !{JSON.stringify(user)}
     script(src='javascripts/game.js')

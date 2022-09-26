@@ -10,7 +10,7 @@ exports.new_message_post = [
     
 
     // Validate and sanitize message.
-    body('message').trim().escape(),
+    body('message').trim(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -22,7 +22,7 @@ exports.new_message_post = [
         // Create temp user info in case of error without saving data.
         var message = new Message(
             {
-                message: req.body.message,
+                message: req.body.message.toString(), 
                 username: req.body.username,
                 channel: req.body.channel,
                 pic: req.body.pic,
@@ -75,5 +75,24 @@ exports.index_get = (req, res, next) => {
     },
         (err, results) => {
             res.render('index', { error: err, data: results, user: req.user});
+        });
+};
+
+// GET request for home/index page.
+exports.membership_get = (req, res, next) => {
+    async.parallel({
+        message_list(callback) {
+            Message.find({}, callback); // Pass an empty object as match condition to find all documents of this collection
+        },
+
+        user_list(callback) {
+            User.find({}, callback); // Pass an empty object as match condition to find all documents of this collection
+        },
+        user_count(callback) {
+            User.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
+        },
+    },
+        (err, results) => {
+            res.render('membership', { error: err, data: results, user: req.user});
         });
 };

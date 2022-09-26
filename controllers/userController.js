@@ -100,6 +100,18 @@ exports.user_signin_post = (req, res, next) => {
     })(req, res, next);
 }
 
+exports.memberize_post = (req, res, next) => {
+    console.log(`memberizing ${req.body.id}...`);
+
+    User.updateOne({ _id: req.body.id }, {member: true}, function (err, docs) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Updated Docs : ", docs);
+        }
+    });
+}
+
 // Handle signing user out.
 exports.user_signout_post = (req, res, next) => {
     req.logout(function (err) {

@@ -10,6 +10,8 @@ html
 
             #navlinks
                 if user
+                    if user.member 
+                        h2.glitchable.status Member
                     h2.glitchable= user.username
                     a(href='/sign-out') Sign Out
                     a(href='/membership') Membership

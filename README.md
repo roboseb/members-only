@@ -36,7 +36,7 @@ September 20th, 2022
 
     Miiiiight be another other day.
 
-September 21th, 2022
+September 21st, 2022
 
     Welcome to the next next day, with a totally unknown level of reasonability.
 
@@ -44,7 +44,23 @@ September 21th, 2022
 
     Ow! (Splidao!) [I Like It, Though] by Hail the Sun is the song of the day. It's from their second album as far as I can see, so I checked out their first album, and the first song on there is conceptually cool but sounds like shit, so I will be looking at newer albums. As a side note, found out yesterday that this type of music is called post-hardcore. Much worse name than my suggestion, 'progunk'.
 
+September 22nd, 2022
 
+    Looks like I forgot to write up a devlog for this day, so hey, this is future Seb.
+
+September 25th, 2022
+
+    Obviously lost a couple of days. Got a little sick again, so decided to take it easy on the 23rd and then yesterday the family got together for a little lunch.
+
+    As for what I was up to on the 22nd, I started working on the members only part, but decided as usual that just hiding usernames was stupid and pointless. So I threw together some code that will redact names of users and post dates, and then randomly redact words within a sentence. This sort of ends up making mad libs for some posts, which can be funny. At least it's slightly more interesting than the TOP outline. As for how you become a member, the outline again has a simple suggestion, of just having a secret code that you get to your users somehow. Looked at another guy's project, and he just put the codes in the README, which I guess is fair enough to get the practice in.
+
+    Last day I was working on this though, I had the thought of having a puzzle to solve on the members page. At first I sketched some circles and tried to come up with something involving those, but couldn't come up with anything. Then I started thinking back to streams I've watched of the zero escape games, and specifically the Virtue's Last Reward where anagrams are painted all bloodily on a couple walls. Cool! An anagram! But I wanted my code input to be laid out like a number combination lock, because I hate myself and do not value my time. So I thought back to a different death game visual novel, where an early twist shows that similar bloodied text on a wall is actually inverted numbers. VLR does this too btw, and if you're wondering, yes, it's pretty stupid in both games. Anyway, why not combine these two? On the members page, there is now an anagram, which once solved can be inverted and then read numbers, giving you the code. The cool part is that the non-number text is eight characters long but the code is nine! That's as much as I'm giving away here in the README. Try it out yourself!
+
+    Please click the button on the membership page a bunch. The animation is really cool and also shoutout to my boy iteration.
+
+    Membership page is done and connected. 
+
+    Succesfully wasted most of a day animating one element.
 
 --To-Do---
 
@@ -52,14 +68,14 @@ CANCEL(discord layout)-Fade in on scroll like fireship's video
 DONE-Add in mia
 DONE-random delete messages
 CANCEL-eye scrolling animations
--random change messages' data
+DONE-random change messages' data
 DONE-little password eyeball
 DONE-invalid login errors
 DONE-basic layout
--fake random user flags like, "banned", "suspended" etc.
+CANCEL-fake random user flags like, "banned", "suspended" etc.
 DONE-screen bleeding effect (overly realistic)
 DONE-message timestamp
--UI elements start bugging out
+DONE-UI elements start bugging out
 DONE-randomly replace characters with dingbats(rakugaki)
 DONE-fix dates
 DONE-add actual channel funcitonality
@@ -70,7 +86,12 @@ DONE-credits page somewhere
 CANCEL-@ mention stylings
 DONE-style signup/sign in
 - uncomment sendData
-- members only shit
+DONE- members only shit
+CANCEL-every glitch adds a new layer to the background song
+CANCEL-sound effects
+DONE-fix apostrophes
+-favicon
+-Setup glitches
 
 
 ---Credits---

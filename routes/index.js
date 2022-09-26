@@ -7,9 +7,6 @@ const message_controller = require('../controllers/messageController');
 /* GET home page. */
 router.get('/', message_controller.index_get);
 
-
-
-
 /* GET sign-up page. */
 router.get('/sign-up', function (req, res, next) {
     res.render('sign-up', { title: 'Sign Up' });
@@ -21,9 +18,7 @@ router.get('/sign-in', function (req, res, next) {
 });
 
 /* GET sign-in page. */
-router.get('/membership', function (req, res, next) {
-    res.render('membership', { title: 'Membership' });
-});
+router.get('/membership', message_controller.membership_get);
 
 /* GET sign-out request. */
 router.get('/sign-out', user_controller.user_signout_post);
@@ -38,5 +33,7 @@ router.post('/sign-in', user_controller.user_signin_post);
 router.post('/add-message', message_controller.new_message_post);
 
 router.post('/delete-message', message_controller.message_delete_post);
+
+router.post('/memberize', user_controller.memberize_post);
 
 module.exports = router;

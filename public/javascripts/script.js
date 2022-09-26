@@ -131,6 +131,8 @@ glitchListenerButton.addEventListener('click', () => {
     const glitchables = Array.from(document.querySelectorAll('.glitchable'));
     glitchables.forEach(message => {
         message.addEventListener('click', () => {
+            if (glitchedText) return;
+            glitchedText = true;
             glitchText(message);
             processGlitchCount();
         });
@@ -142,12 +144,11 @@ const dingbatListenerButton = document.querySelector('.dingbat-listener-btn');
 dingbatListenerButton.addEventListener('click', () => {
     const glitchables = Array.from(document.querySelectorAll('.glitchable'));
     glitchables.forEach(message => {
+        if (dingbatText) return;
+        dingbatText = true; 
         message.addEventListener('click', () => {
             message.classList.add('dingbatted');
             message.innerText = shift(message.innerText, 1);
-
-            console.log(message.innerText);
-            console.log(shift(message.innerText, 1))
         });
     });
 });
@@ -200,8 +201,6 @@ const animateMias = (ani) => {
             break;
     }
 }
-
-
 
 // Add reset local data button event listener.
 const resetButton = document.querySelector('.reset-btn');
@@ -299,7 +298,6 @@ texts.forEach(message => {
         const newWord = document.createElement('span');
         
         const roll = Math.floor(Math.random() * 2);
-        console.log(roll);
 
         if (word !== ' ' && roll > 0) {
             newWord.classList.add('redacted-word');
@@ -382,4 +380,60 @@ const initialize = (() => {
             blood.classList.add('activated');
         });
     }
+
+    // Setup whether mia's panel has been revealed or not.
+    if (localStorage.getItem('miaControls')) {
+        const controls = document.getElementById('mia-controls');
+        controls.classList.add('shown');
+    }
 })();
+
+let glitchedText = false;
+
+// Setup server icon listeners for glitching out.
+const serverIcons = Array.from(document.querySelectorAll('div.server-icon:not(.plus-server)'));
+serverIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+
+        if (glitchedText) return;
+        glitchedText = true; 
+
+        animateMias('bleeding');
+
+        const glitchables = Array.from(document.querySelectorAll('.glitchable'));
+        glitchables.forEach(message => {
+            message.addEventListener('click', () => {
+                
+                glitchText(message);
+                processGlitchCount();
+            });
+        });
+    });
+});
+
+let dingbatText = false;
+
+// Setup icon listeners for glitching out.
+const baseIcons = Array.from(document.querySelectorAll('.icon'));
+baseIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+        if (dingbatText) return;
+        dingbatText = true; 
+        const glitchables = Array.from(document.querySelectorAll('.glitchable'));
+        glitchables.forEach(message => {
+            message.addEventListener('click', () => {      
+                message.classList.add('dingbatted');
+                message.innerText = shift(message.innerText, 1);
+            });
+        });
+    });
+});
+
+// Setup new server icon for adding glitched channels.
+const serverButton = document.querySelector('.new-channel');
+serverButton.addEventListener('click', () => {
+    // Add a number of 'redacted' channels between 1 and 10.
+    addChannel('redacted', Math.ceil(Math.random() * 10));
+    
+    animateMias('crying');
+});

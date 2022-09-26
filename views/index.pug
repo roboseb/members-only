@@ -3,7 +3,7 @@ extends layout
 block content
 
     #homebox
-        #mia-controls   
+        #mia-controls 
             button.bleed-btn Bleed
             button.glitch-btn Glitch
             button.glitch-listener-btn Add glitch listeners
@@ -12,8 +12,6 @@ block content
             button.mia-crying-btn Crying
             button.mia-bleeding-btn Bleeding
             button.add-channel-btn New Channel
-            .glitch codepen
-            .glitch(text-content='glitchtest') glitchtest
 
         #server-icons
             .server-icon.discord-icon-box
@@ -23,8 +21,8 @@ block content
                 .server-icon-image(style="background-image: url('/images/odin.webp')")
             .server-icon.selected
                 .server-icon-image.mia(style="background-image: url('/images/mia.webp')")
-            .server-icon.server-option
-                .server-icon-image(style="background-image: url('/images/plus2.svg')")
+            .server-icon.server-option.plus-server
+                .server-icon-image.new-channel(style="background-image: url('/images/plus2.svg')")
             .server-icon.notification.server-option
                 .server-icon-image(style="background-image: url('/images/compass.png')")
         #server-content

@@ -9,6 +9,7 @@
     --discord-green: #3ba55d;
 
     --messagebox-height: 400px;
+    --button-color: red;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -78,11 +79,30 @@ a {
 #navbar h2 {
     margin: 0;
     font-size: 1rem;
+
+}
+
+#navbar>a {
+    transition: all 0.2s;
+}
+
+#navbar a:hover {
+    color: var(--discord-blue);
 }
 
 #navbar>#navlinks {
     display: flex;
-    gap: 8px;
+    gap: 14px;
+
+    align-items: center;
+}
+
+#navbar>#navlinks>*:not(.status):not(h2) {
+    transition: all 0.2s;
+}
+
+#navbar>#navlinks>*:not(.status):not(h2):hover {
+    color: var(--discord-blue);
 }
 
 #main {
@@ -1019,6 +1039,12 @@ a {
     width: 25%;
 
     background-color: rgba(0, 128, 128, 0.486);
+
+    display: none;
+}
+
+#mia-controls.shown {
+    display: initial;
 }
 
 .glitch {
@@ -1086,8 +1112,6 @@ a {
             -0.04em -0.025em 0 #fffc00;
     }
 }
-
-.mia-pic {}
 
 .mia-dingbat {
     position: absolute;
@@ -1304,22 +1328,59 @@ a {
     position: absolute;
     font-size: 1rem;
     width: 100%;
-    background-color: bisque;
     color: black;
+
+    transition: all 100ms;
 }
 
 .scroll-up {
     top: 0;
-    left: 0;
-    
-    transform: translate(0%, -100%);
+    left: 50%;
+
+    transform: translate(-50%, -150%);
+
+    border-bottom: 20px solid black;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 0px solid transparent;
+    height: 0;
+    width: 70%;
+
+    background-color: transparent;
+}
+
+.scroll-up:hover {
+    border-bottom: 20px solid rgb(85, 85, 85);
+}
+
+.scroll-up:active {
+    border-bottom: 20px solid rgb(221, 221, 221);
+    transform: translate(-50%, -150%) scale(0.8);
 }
 
 .scroll-down {
     bottom: 0;
-    left: 0;
+    left: 50%;
 
-    transform: translate(0%, 100%);
+    transform: translate(-50%, 150%);
+
+    border-top: 20px solid black;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 0px solid transparent;
+    height: 0;
+    width: 70%;
+
+    background-color: transparent;
+}
+
+.scroll-down:hover {
+    border-top: 20px solid rgb(85, 85, 85);
+}
+
+.scroll-down:active {
+    border-top: 20px solid rgb(221, 221, 221);
+    transform: translate(-50%, 150%) scale(0.8);
 }
 
 .scrolling {
@@ -1336,6 +1397,8 @@ a {
     align-items: center;
 
     pointer-events: none;
+
+    background-color: var(--discord-blue);
 }
 
 .scrolling::-webkit-scrollbar {
@@ -1343,10 +1406,279 @@ a {
 }
 
 .digit {
-    background-color: rgb(182, 50, 50);
+
     padding: 5px 5px;
     width: 100%;
     text-align: center;
 
     border-bottom: 5px solid black;
+}
+
+.membership {
+
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    position: relative;
+}
+
+.solehint {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+
+    height: 30vh;
+    width: 30vh;
+
+    transition: all 0.2s cubic-bezier(0.5, 0.89, 0.5, 2);
+    transform-origin: top right;
+}
+
+.solehint:hover {
+    transform: skewX(-5deg) scaleY(0.9);
+}
+
+.solehint:hover .sticky {
+    filter: drop-shadow(20px 25px 8px rgba(0, 0, 0, 0.24));
+}
+
+.sticky {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    filter: drop-shadow(5px 15px 8px rgba(0, 0, 0, 0.507));
+    transition: all 0.2s;
+}
+
+.hint-text {
+    position: absolute;
+
+    top: 12%;
+    left: 54%;
+
+    transform: translate(-50%) rotate(-3deg);
+    height: 100%;
+    width: 70%;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center;
+}
+
+#code-box.processed {
+    animation: wrongkey 400ms;
+}
+
+@keyframes wrongkey {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.scrolling.wrong {
+    animation: wrongdigit 400ms;
+}
+
+@keyframes wrongdigit {
+    0% {
+        background-color: var(--discord-blue);
+    }
+
+    50% {
+        background-color: rgb(255, 57, 57)
+    }
+
+    100% {
+        background-color: var(--discord-blue);
+    }
+}
+
+.scrolling.correct {
+    animation: correctdigit 400ms;
+}
+
+@keyframes correctdigit {
+    0% {
+        background-color: var(--discord-blue);
+    }
+
+    50% {
+        background-color: var(--discord-green)
+    }
+
+    100% {
+        background-color: var(--discord-blue);
+    }
+}
+
+.code-input-box.processed {
+    animation: wrongbox 400ms;
+}
+
+@keyframes wrongbox {
+    0% {
+        transform: translateY(0%);
+    }
+
+    50% {
+        transform: translateY(-50%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+.scroll-down.processed {
+    animation: wrongdown 400ms;
+}
+
+@keyframes wrongdown {
+    0% {
+        transform: translate(-50%, 150%)
+    }
+
+    50% {
+        transform: translate(-50%, 120%)
+    }
+
+    100% {
+        transform: translate(-50%, 150%)
+    }
+}
+
+.scroll-up.processed {
+    animation: wrongup 400ms;
+}
+
+@keyframes wrongup {
+    0% {
+        transform: translate(-50%, -150%) rotate(0deg);
+        border-bottom: 20px solid rgb(0, 0, 0);
+    }
+
+    15% {
+        transform: translate(-50%, -200%) rotate(90deg);
+        border-bottom: 20px solid rgb(255, 255, 255);
+    }
+
+    50% {
+        transform: translate(-50%, -200%) rotate(90deg);
+        border-bottom: 20px solid rgb(255, 255, 255);
+    }
+
+    75% {
+        transform: translate(-50%, -150%) rotate(00deg);
+        border-bottom: 20px solid rgb(0, 0, 0);
+    }
+
+    100% {
+        transform: translate(-50%, -150%) rotate(0deg);
+        border-bottom: 20px solid rgb(0, 0, 0);
+    }
+}
+
+#code-box.dancing {
+    animation: wrongkey 800ms infinite;
+}
+
+#code-box.dancing .scrolling {
+    animation: correctdigit 800ms infinite;
+}
+
+#code-box.dancing .code-input-box {
+    animation: wrongbox 800ms infinite;
+}
+
+#code-box.dancing .scroll-down {
+    animation: wrongdown 800ms infinite;
+}
+
+#code-box.dancing .scroll-up {
+    animation: wrongup 800ms infinite;
+}
+
+
+.membership>button {
+    font-family: unisans-light, sans-serif;
+
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    margin: 10px;
+
+    background-color: var(--discord-green);
+    border: none;
+    border-radius: 10px;
+
+    transition: all 0.5s, width 0.2s, background-color 0.2s;
+    cursor: pointer;
+
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.membership>button:hover {
+    background-color: #185f2e;
+    color: white;
+    width: 100%;
+    border-radius: 0px;
+}
+
+button.granted {
+    background-color: khaki !important;
+    width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+button.granted:hover {
+    background-color: rgb(255, 255, 254) !important;
+    color: black;
+}
+
+.status {
+    /* background: rgb(115,138,219);
+    background: linear-gradient(310deg, rgba(115,138,219,1) 0%, rgba(115,138,219,1) 25%, rgba(148,159,199,1) 40%, rgba(148,159,199,1) 60%, rgba(115,138,219,1) 75%, rgba(115,138,219,1) 100%); */
+    background: rgb(115,138,219);
+    background: linear-gradient(310deg, rgba(115,138,219,1) 0%, rgba(115,138,219,1) 25%, rgb(255, 255, 255) 40%, rgb(255, 255, 255)60%, rgba(115,138,219,1) 75%, rgba(115,138,219,1) 100%);
+    background-size: 400% 400%;
+    padding: 4px 5px;
+    border-radius: 5px;
+
+    animation: memberani 3s infinite;
+}
+
+@keyframes memberani {
+    0% {
+        background-position: top left;
+        color: white;
+    }
+
+    50% {
+        background-position: center center;
+        color: black;
+    }
+
+    100% {
+        background-position: bottom right;
+        color: white;
+    }
 }
